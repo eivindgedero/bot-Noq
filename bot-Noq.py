@@ -19,14 +19,17 @@ async def on_ready():
 async def on_message_delete(message):
     if message.author.id == 234623956869447680:
       await message.channel.send(file=discord.File("danny3.png"))
-    channel = client.get_channel(921934495832211460)
-    await channel.send(f"{message.author.name}s message was deleted: {message.content} ")
+    if message.guild.id == 725845122901737524:
+      channel = client.get_channel(921934495832211460)
+      await channel.send(f"**deleted**       {message.author.name}: *{message.content}*")
 
 @client.event
 async def on_message_edit(before, after):
-    if before.content != after.content:
-      channel = client.get_channel(921934495832211460)
-      await channel.send(f"original       {before.author.name}: {before.content} \nafter edit    {before.author.name}: {after.content}")
+    if before.guild.id == 725845122901737524:
+      if before.content != after.content:
+        channel = client.get_channel(921934495832211460)
+        await channel.send(f"**original**       {before.author.name}: *{before.content}*")
+        await channel.send(f"**after edit**    {before.author.name}: *{after.content}*")
 
 @client.event 
 async def on_member_join(member):
