@@ -26,7 +26,7 @@ async def on_message_delete(message):
 async def on_message_edit(before, after):
     if before.content != after.content:
       channel = client.get_channel(921934495832211460)
-      await channel.send(f"before edit {before.author.name}: {before.content} \nafter edit {before.author.name}: {after.content}")
+      await channel.send(f"before edit   {before.author.name}: {before.content} \nafter edit      {before.author.name}: {after.content}")
 
 @client.event 
 async def on_member_join(member):
