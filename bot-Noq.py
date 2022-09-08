@@ -21,15 +21,15 @@ async def on_message_delete(message):
       await message.channel.send(file=discord.File("danny3.png"))
     if message.guild.id == 725845122901737524:
       channel = client.get_channel(921934495832211460)
-      await channel.send(f"**deleted**       {message.author.name}: *{message.content}*")
+      await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
 @client.event
 async def on_message_edit(before, after):
     if before.guild.id == 725845122901737524:
       if before.content != after.content:
         channel = client.get_channel(921934495832211460)
-        await channel.send(f"**original**       {before.author.name}: *{before.content}*")
-        await channel.send(f"**after edit**    {before.author.name}: *{after.content}*")
+        await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
+        await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
 @client.event 
 async def on_member_join(member):
