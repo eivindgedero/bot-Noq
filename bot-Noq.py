@@ -32,10 +32,10 @@ async def on_message_edit(before, after):
       if before.content != after.content:
         if before.channel.id == 902972612601323691:
           return
-      else:
-        channel = client.get_channel(921934495832211460)
-        await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
-        await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
+        else:
+          channel = client.get_channel(921934495832211460)
+          await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
+          await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
 @client.event 
 async def on_member_join(member):
