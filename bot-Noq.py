@@ -20,13 +20,19 @@ async def on_message_delete(message):
     if message.author.id == 234623956869447680:
       await message.channel.send(file=discord.File("danny3.png"))
     if message.guild.id == 725845122901737524:
-      channel = client.get_channel(921934495832211460)
-      await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
+      if message.channel.id == 902972612601323691:
+        return
+      else:
+        channel = client.get_channel(921934495832211460)
+        await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
 @client.event
 async def on_message_edit(before, after):
     if before.guild.id == 725845122901737524:
       if before.content != after.content:
+        if before.channel.id == 902972612601323691:
+          return
+      else:
         channel = client.get_channel(921934495832211460)
         await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
         await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
