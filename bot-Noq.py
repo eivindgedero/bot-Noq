@@ -1,8 +1,7 @@
-import os
 import discord
 import random
 import re
-
+import config
 
 client = discord.Client(intents=discord.Intents.all())
 
@@ -189,4 +188,4 @@ async def on_message(message):
       #await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")
 
 
-client.run('secret')
+client.run(config.secret)
