@@ -15,6 +15,7 @@ pg_12 = ["you're 12", "you 12", "12 year", "im 12", "i'm 12", "your 12", "12 btw
 async def on_ready():
     print('Logged in as {0.user}'.format(client))
 
+
 @client.event
 async def on_message_delete(message):
     if message.author.id == 234623956869447680:
@@ -30,6 +31,7 @@ async def on_message_delete(message):
         channel = client.get_channel(1017593223226609664)
         await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
+
 @client.event
 async def on_message_edit(before, after):
     if before.guild.id == 725845122901737524:
@@ -43,15 +45,18 @@ async def on_message_edit(before, after):
           await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
           await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
+
 @client.event 
 async def on_member_join(member):
     channel = client.get_channel(1017593223226609664)
     await channel.send(f"{member.name} has joined the server.")
     
+    
 @client.event
 async def on_member_remove(member):
     channel = client.get_channel(1017593223226609664)
     await channel.send(f"{member.name} has left the server.")
+
 
 @client.event
 async def on_message(message):
@@ -68,7 +73,6 @@ async def on_message(message):
     if bool(re.search(r'[Aa]bba', msg))== True and bool(re.search(r'[Kk][Ii][Ll]', msg)) == True:
       await message.channel.send(file=discord.File("bot.png"))
       
-      
   
     if any(link in msg for link in links_to_copy):
         with open("file_with_links.txt", "a") as links:
@@ -76,6 +80,7 @@ async def on_message(message):
           for bildelink in bildelinker:
             links.write(bildelink)
             links.write("\n")
+
 
     if any(clue in msg for clue in clue_phrasings):
       await message.channel.send("<:pepe_clue:939686143081996369>")
@@ -114,6 +119,7 @@ async def on_message(message):
         if number == 3:
           await message.channel.send("<:what:966402492504092692>")
         
+        
     #Andria
     if message.author.id == 207554978133442561:
       number = random.randint(1,30)
@@ -149,7 +155,6 @@ async def on_message(message):
     #   elif number == 6:
     #     await message.send("<:snakie3:830485522702008351>")
 
-
         
     #Hex 
     if message.author.id == 159623799459938304:
@@ -171,6 +176,7 @@ async def on_message(message):
       if bool(re.search("amazing day", msg)) == True:
         await message.reply("You too! <:cat_heart:753781525342060545>")
 
+
     if bool(re.search(r'.olak', msg)) == True:
       number = random.randint(1,5)
       if number == 4:
@@ -180,8 +186,7 @@ async def on_message(message):
     #Noq
     #if message.author.id == 157211170233647104:
       #await message.reply("<:snakie2:830485528821760040>")
-#      await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")
+      #await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")
 
 
-
-client.run('OTQ2Nzg2NDM5MTcyMDg3ODM4.YhjxlQ.GNMV3-gQMWUJ2tt1jn__wgmfncY')
+client.run('secret')
