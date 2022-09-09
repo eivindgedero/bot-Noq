@@ -1,21 +1,25 @@
-import os
 import discord
 import random
 import re
+import requests, json
+from wind_converter import wind_converter
+from discord.ext import commands
+from discord import Embed
+
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 
 
-client = discord.Client(intents=discord.Intents.all())
 
 links_to_copy = ["puu", "imgur", "gyazo", "streamable"]
 clue_phrasings = ["your clues", "ur clues", "do clues"]
 pg_12 = ["you're 12", "you 12", "12 year", "im 12", "i'm 12", "your 12", "12 btw", "pg12", "is 12", "I'm 12", "Im 12", "ur 12", "pg 12", "pg-12", "r 12", "he's 12", "He's 12", "12 y"]
 
 
-@client.event 
+@bot.event 
 async def on_ready():
-    print('Logged in as {0.user}'.format(client))
+    print('Logged in as {0.user}'.format(bot))
 
-@client.event
+@bot.event
 async def on_message_delete(message):
     if message.author.id == 234623956869447680:
       await message.channel.send(file=discord.File("danny3.png"))
@@ -24,11 +28,13 @@ async def on_message_delete(message):
         return
       elif message.channel.id == 1017593223226609664:
         return
+      elif message.author.id == 946786439172087838:
+        return
       else:
-        channel = client.get_channel(1017593223226609664)
+        channel = bot.get_channel(1017593223226609664)
         await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
-@client.event
+@bot.event
 async def on_message_edit(before, after):
     if before.guild.id == 725845122901737524:
       if before.content != after.content:
@@ -37,29 +43,23 @@ async def on_message_edit(before, after):
         elif before.channel.id == 1017593223226609664:
           return
         else:
-          channel = client.get_channel(1017593223226609664)
+          channel = bot.get_channel(1017593223226609664)
           await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
           await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
-@client.event 
+@bot.event 
 async def on_member_join(member):
-    channel = client.get_channel(1017593223226609664)
+    channel = bot.get_channel(1017593223226609664)
     await channel.send(f"{member.name} has joined the server.")
     
-@client.event
+@bot.event
 async def on_member_remove(member):
-    channel = client.get_channel(1017593223226609664)
+    channel = bot.get_channel(1017593223226609664)
     await channel.send(f"{member.name} has left the server.")
-    
-  
-# @client.event
-# async def on_message_edit(before, after):
-#       if before.content != after.content:
-#         await before.channel.send(before.author.name +": "+ before.content))
 
-@client.event
+@bot.event
 async def on_message(message):
-    if message.author == client.user:
+    if message.author == bot.user:
       return
     
     msg = message.content
@@ -71,7 +71,6 @@ async def on_message(message):
   
     if bool(re.search(r'[Aa]bba', msg))== True and bool(re.search(r'[Kk][Ii][Ll]', msg)) == True:
       await message.channel.send(file=discord.File("bot.png"))
-      
       
   
     if any(link in msg for link in links_to_copy):
@@ -86,19 +85,6 @@ async def on_message(message):
 
     if any(kid in msg for kid in pg_12):
       await message.channel.send("<a:pg12:951603378625077329>")
-
-    if message.content.startswith('$storage'):
-      await message.channel.send(file=discord.File('file_with_links.txt'))
-
-    if message.content.startswith('$dannylate'):
-      await message.channel.send("<@234623956869447680> quit playing your stupid F1 game..")
-
-    if message.content.startswith("$abbalate"):
-      await message.channel.send("<@185793621524611081> get the fuck on discord already!")
-        
-    if message.content.startswith('$help'):
-      await message.channel.send("$storage - posts text document with all stored links. \n")
-      await message.channel.send("Any puu.sh, imgur, gyazo or streamable links will be stored in this document. \n")
 
       
     #Melvin
@@ -130,7 +116,7 @@ async def on_message(message):
       emotes = re.findall(r':.*cat.*:', msg)
       for e in emotes:
         await message.channel.send("<:coco_zbfa:844717311574802433>")   
-      number = random.randint(1,100)
+      number = random.randint(1,200)
       if number == 69:
         await message.add_reaction("<:meow_lub:809896200290959431>")
       
@@ -156,8 +142,7 @@ async def on_message(message):
     #     await message.send("<:snakie:812761513868918844>")
     #   elif number == 6:
     #     await message.send("<:snakie3:830485522702008351>")
-
-
+      
         
     #Hex 
     if message.author.id == 159623799459938304:
@@ -179,6 +164,7 @@ async def on_message(message):
       if bool(re.search("amazing day", msg)) == True:
         await message.reply("You too! <:cat_heart:753781525342060545>")
 
+
     if bool(re.search(r'.olak', msg)) == True:
       number = random.randint(1,5)
       if number == 4:
@@ -186,10 +172,63 @@ async def on_message(message):
 
       
     #Noq
-    #if message.author.id == 157211170233647104:
-      #await message.reply("<:snakie2:830485528821760040>")
-#      await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")
+    # if message.author.id == 157211170233647104:
+    #   await message.add_reaction("<:snakie2:830485528821760040>")
+    #   await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")
+    #   await message.channel.send("<a:pepe_nerd:913165676070445157>")
 
+    await bot.process_commands(message)
 
+api_key = "6f00885831ac2fe7f0f1bc1d51f1f836"
+base_url = "https://api.openweathermap.org/data/2.5/weather?"
+  
+@bot.command()
+async def weather(ctx, *, city: str):
+    if ctx.channel.id != 784215570173657118:
+      await ctx.channel.send("Please use <#784215570173657118>.")
+    else:
+      unit = "units=metric"
+      complete_url = f"{base_url}appid={api_key}&q={city}&{unit}"
+      response = requests.get(complete_url)
+      result = response.json()
 
-client.run('OTQ2Nzg2NDM5MTcyMDg3ODM4.YhjxlQ.GNMV3-gQMWUJ2tt1jn__wgmfncY')
+      channel = ctx.message.channel
+        
+      if result["cod"] != "404":
+        async with channel.typing():
+          city = result["name"]
+          weather_description = result["weather"][0]["description"]
+          temperature = result["main"]["temp"]
+          minimum_temperature = result["main"]["temp_min"]
+          maximum_temperature = result["main"]["temp_max"]
+          pressure = result["main"]["pressure"]
+          humidity = result["main"]["humidity"]
+          wind_speed = result["wind"]["speed"]
+          wind_direction = result["wind"]["deg"]
+            
+          embed=discord.Embed(title=f"{city}", color=0x14aaeb)
+          embed.add_field(name="Temperature", value=f"{temperature}°C", inline = True)
+          embed.add_field(name="max", value=f"{maximum_temperature}°C", inline = True)
+          embed.add_field(name="min", value=f"{minimum_temperature}°C", inline = True)
+          embed.add_field(name="Description", value=f"{weather_description}", inline = False)
+          embed.add_field(name="Wind condition", value=f"{wind_speed}m/s {wind_converter(wind_direction)}", inline = False)
+          embed.add_field(name="Pressure", value=f"{pressure}hPa", inline = True)
+          embed.add_field(name="humidity", value=f"{humidity}%", inline = True)          
+          await channel.send(embed=embed)
+      else:
+          await channel.send("City not found.")
+          
+@bot.command()
+async def storage(message):
+  await message.channel.send(file=discord.File('file_with_links.txt'))
+
+@bot.command()
+async def abbalate(message):
+  await message.channel.send("<@185793621524611081> wake up, it's time to game!")
+  
+@bot.command()
+async def dannylate(message):
+  await message.channel.send("<@234623956869447680> quit playing your stupid F1 game..")
+
+      
+bot.run('OTQ2Nzg2NDM5MTcyMDg3ODM4.YhjxlQ.GNMV3-gQMWUJ2tt1jn__wgmfncY')
