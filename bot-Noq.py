@@ -22,8 +22,10 @@ async def on_message_delete(message):
     if message.guild.id == 725845122901737524:
       if message.channel.id == 902972612601323691:
         return
+      elif message.channel.id == 1017593223226609664:
+        return
       else:
-        channel = client.get_channel(921934495832211460)
+        channel = client.get_channel(1017593223226609664)
         await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
 @client.event
@@ -32,19 +34,21 @@ async def on_message_edit(before, after):
       if before.content != after.content:
         if before.channel.id == 902972612601323691:
           return
+        elif before.channel.id == 1017593223226609664:
+          return
         else:
-          channel = client.get_channel(921934495832211460)
+          channel = client.get_channel(1017593223226609664)
           await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
           await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
 @client.event 
 async def on_member_join(member):
-    channel = client.get_channel(921934495832211460)
+    channel = client.get_channel(1017593223226609664)
     await channel.send(f"{member.name} has joined the server.")
     
 @client.event
 async def on_member_remove(member):
-    channel = client.get_channel(921934495832211460)
+    channel = client.get_channel(1017593223226609664)
     await channel.send(f"{member.name} has left the server.")
     
   
