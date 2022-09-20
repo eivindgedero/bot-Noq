@@ -64,7 +64,7 @@ async def on_message(message):
     
     msg = message.content
 
-    if (message.channel.id == 744692129812447343) and message.attachments or any(link in msg for link in links_to_copy):
+    if ((message.channel.id == 744692129812447343) and message.attachments) or ((message.channel.id == 744692129812447343) and any(link in msg for link in links_to_copy)):
       await message.add_reaction("<a:stitch_cheer:806648037908807739>")
       await message.add_reaction("<a:panda_w00t:842286461990600714>")
 
