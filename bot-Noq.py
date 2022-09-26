@@ -109,7 +109,7 @@ async def on_message(message):
       number = random.randint(1,10)
       if number == 2:
         await message.channel.send("<:abba_approved:753774504873820251> <:abba_soup:753775919587393546>")
-      wah = re.findall('wa+h+', msg)
+      wah = re.findall('[Ww][Aa]+[Hh]+', msg)
       if any(waah in msg for waah in wah):
         await message.channel.send(wah[-1] + " " + wah[-1])
         await message.add_reaction("<:abba_wah:892937828500144169>")

@@ -6,4 +6,4 @@ def link_refresher():
     for line in file.readlines():
       webbrowser.open(line)
 link_refresher()
-os.system("taskkill /im chrome.exe /f")
+#os.system("taskkill /im chrome.exe /f")
