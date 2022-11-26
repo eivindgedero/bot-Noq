@@ -80,7 +80,8 @@ async def on_message(message):
                 links.write(bildelink)
                 links.write("\n")
 
-    if "dutch" or "Dutch" in msg:
+    dutch = re.findall("[Dd]utch", msg)
+    if any(d in msg for d in dutch):
         number = random.randint(1, 5)
         if number == 4:
             await message.channel.send(file=discord.File("abba_dutch.png"))
