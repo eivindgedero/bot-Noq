@@ -79,13 +79,14 @@ async def on_message(message):
           for bildelink in bildelinker:
             links.write(bildelink)
             links.write("\n")
+            
 
 
-    if any(clue in msg for clue in clue_phrasings):
-      await message.channel.send("<:pepe_clue:939686143081996369>")
+    # if any(clue in msg for clue in clue_phrasings):
+    #   await message.channel.send("<:pepe_clue:939686143081996369>")
 
-    if any(kid in msg for kid in pg_12):
-      await message.channel.send("<a:pg12:951603378625077329>")
+    # if any(kid in msg for kid in pg_12):
+    #   await message.channel.send("<a:pg12:951603378625077329>")
 
     if message.content.startswith('$storage'):
       await message.channel.send(file=discord.File('file_with_links.txt'))
