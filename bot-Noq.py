@@ -94,6 +94,9 @@ async def on_message(message):
     if message.content.startswith('$storage'):
         await message.channel.send(file=discord.File('file_with_links.txt'))
 
+    if message.content.startswith('$volvo'):
+        await message.channel.send(file=discord.File('abba_volvo.png'))
+
     # if message.content.startswith('$dannylate'):
     #   await message.channel.send("<@234623956869447680> quit playing your stupid F1 game..")
 
