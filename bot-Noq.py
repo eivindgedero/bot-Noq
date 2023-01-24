@@ -29,6 +29,7 @@ async def on_message_delete(message):
             return
         else:
             channel = client.get_channel(1017593223226609664)
+            await channel.send(f"**{message.channel.name}**")
             await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
 
@@ -42,6 +43,7 @@ async def on_message_edit(before, after):
                 return
             else:
                 channel = client.get_channel(1017593223226609664)
+                await channel.send(f"**{before.channel.name}**")
                 await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
                 await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
 
