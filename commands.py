@@ -3,10 +3,10 @@ import random
 import math
 import config
 from discord.ext import commands
-from wind_converter import wind_converter
+# from wind_converter import wind_converter
 from divide_teams import divide_teams
-from discord import FFmpegPCMAudio
-from discord import FFmpegOpusAudio
+# from discord import FFmpegPCMAudio
+# from discord import FFmpegOpusAudio
 intents = discord.Intents.all()
 intents.message_content = True
 
@@ -48,6 +48,8 @@ async def volvo(message):
              )
 async def storage(message):
     await message.send(file=discord.File('file_with_links.txt'))
+
+bot.run(config.secret)
 
 # @bot.command(pass_context=True)
 # async def play(message):
@@ -96,10 +98,6 @@ async def storage(message):
 #             await channel.send(embed=embed)
 #         else:
 #             await channel.send("City not found.")
-
-
-bot.run(config.secret)
-
 # @client.command(
 #     name='vuvuzela',
 #     description='Plays an awful vuvuzela in the voice channel',

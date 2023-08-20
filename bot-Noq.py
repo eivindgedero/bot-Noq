@@ -2,11 +2,6 @@ import discord
 import random
 import re
 import config
-import math
-from audio_picker import audio_picker
-import asyncio
-import ffmpeg
-
 
 client = discord.Client(intents=discord.Intents.all())
 
@@ -14,18 +9,19 @@ links_to_copy = ["puu", "imgur", "gyazo", "streamable"]
 clue_phrasings = ["your clues", "ur clues", "do clues"]
 pg_12 = ["you're 12", "you 12", "12 year", "im 12", "i'm 12", "your 12", "12 btw", "pg12",
          "is 12", "I'm 12", "Im 12", "ur 12", "pg 12", "pg-12", "r 12", "he's 12", "He's 12", "12 y"]
-players = []
+
 
 @client.event
 async def on_ready():
     print('Logged in as {0.user}'.format(client))
 
 
-
 @client.event
 async def on_message_delete(message):
     if message.author.id == 234623956869447680:
-        await message.channel.send(file=discord.File("danny3.png"))
+        number = random.randint(1, 3)
+        if number == 2:
+            await message.channel.send(file=discord.File("danny3.png"))
     if message.guild.id == 725845122901737524:
         if message.channel.id == 902972612601323691:
             return
@@ -99,11 +95,12 @@ async def on_message(message):
     # if any(kid in msg for kid in pg_12):
     #   await message.channel.send("<a:pg12:951603378625077329>")
 
-    if message.content.startswith('!dannylate'):
-      await message.channel.send("<@234623956869447680> quit playing your stupid F1 game..")
 
-    if message.content.startswith("!abbalate"):
-      await message.channel.send("<@185793621524611081> wake up, it's time to game!")
+    # if message.content.startswith('$dannylate'):
+    #   await message.channel.send("<@234623956869447680> quit playing your stupid F1 game..")
+
+    # if message.content.startswith("$abbalate"):
+    #   await message.channel.send("<@185793621524611081> wake up, it's time to game!")
 
     # Melvin
     # if message.author.id == 275134985869197312:
@@ -126,26 +123,26 @@ async def on_message(message):
                 await message.channel.send("<:what:966402492504092692>")
 
     # Andria
-    if message.author.id == 207554978133442561:
+    # if message.author.id == 207554978133442561:
     #   number = random.randint(1,30)
     #   if number == 5:
     #     await message.channel.send("<:Orlando_Panda:947349761021837363> <:andria_spoon:949735041049718804>")
     #   emotes = re.findall(r':.*cat.*:', msg)
     #   for e in emotes:
     #     await message.channel.send("<:coco_zbfa:844717311574802433>")
-      number = random.randint(1,100)
-      if number == 69:
-        await message.add_reaction("<:meow_lub:809896200290959431>")
+    #   number = random.randint(1,100)
+    #   if number == 69:
+    #     await message.add_reaction("<:meow_lub:809896200290959431>")
 
     # Danny
-    if message.author.id == 234623956869447680:
-      number = random.randint(1,40)
-      if number == 2:
-        await message.add_reaction("<:danny:803790234265452575>")
-      elif number == 4:
-        await message.channel.send("<a:pepe_nerd:913165676070445157>")
-      elif number == 5:
-        await message.add_reaction("<a:danny_mald:957097485782880276>")
+    # if message.author.id == 234623956869447680:
+    #   number = random.randint(1,40)
+    #   if number == 2:
+    #     await message.add_reaction("<:danny:803790234265452575>")
+    #   elif number == 4:
+    #     await message.channel.send("<a:pepe_nerd:913165676070445157>")
+    #   elif number == 5:
+    #     await message.add_reaction("<a:danny_mald:957097485782880276>")
 
     # Soul
     # if message.author.id == 223280159967543296:
@@ -186,41 +183,5 @@ async def on_message(message):
         # await message.reply("<:snakie2:830485528821760040>")
         # await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")
 
-@client.event
-async def on_voice_state_update(member, before, after):
-    if before.channel is None and after.channel is not None and member.id == 157211170233647104:
-        voice_channel = after.channel
-        audio_file = audio_picker(member)
-        vc = await voice_channel.connect()
-        vc.play(discord.FFmpegPCMAudio(audio_file))
-        while voice_channel.isplaying():
-            asyncio.sleep(.1)
-            await voice_channel.disconnect()
-
-        # if voice_channel != None:
-        # #    channel = voice_channel.name
-        #     vc = await voice_channel.connect()
-        #     vc.play(discord.FFmpegPCMAudio(executable="C:/ffmpeg/bin/ffmpeg.exe", source="C:<path_to_file>"))
-        #     # Sleep while audio is playing.
-        #     while vc.is_playing():
-        #         asyncio.sleep(.1)
-        #     await vc.disconnect()
-
-        # player = create_ffmpeg_player(audio_file, after=lambda: print('done'))
-        # player.start()
-        # while not player.is_done():
-        #     await asyncio.sleep(1)
-        # player.stop()
-        # await asyncio.sleep(10)
-        # await voice_channel.disconnect()
-
-
-def connect(ctx):
-    voice_channel = ctx.author.voice.channel
-    vc = voice_channel.connect()
-    vc.play(discord.FFmpegPCMAudio("Local Music file URL"))
-def disconnect(ctx):
-    voice = ctx.voice_client
-    voice.disconnect()
 
 client.run(config.secret)
