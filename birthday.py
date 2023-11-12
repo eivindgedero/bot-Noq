@@ -3,12 +3,13 @@ import json
 from datetime import datetime, timedelta
 from discord.ext import commands, tasks
 import asyncio
-
+import discord
+intents = discord.Intents.all()
 
 with open('birthdays.json', 'r') as file:
     birthdays = json.load(file)
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='!', intents = intents)
 
 
 
