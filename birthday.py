@@ -9,8 +9,7 @@ intents = discord.Intents.all()
 with open('birthdays.json', 'r') as file:
     birthdays = json.load(file)
 
-bot = commands.Bot(command_prefix='!', intents = intents)
-
+client = discord.Client(intents=discord.Intents.all())
 
 
 @tasks.loop(hours=24)
@@ -18,7 +17,9 @@ async def check_birthdays():
     today = datetime.now().strftime("%m-%d")
     for user_id, info in birthdays.items():
         if info['birthday'] == today:
-            channel = bot.get_channel(725845123572957207)
+            channel = client.get_channel(725845123572957207)
+            # if info["name"]=="test":
+            #     channel = client.get_channel(921934495832211459)
             emote = info.get('emote', '')
             birthday_message = f"Happy Birthday <@{user_id}>!"
             if emote:
@@ -28,7 +29,7 @@ async def check_birthdays():
             
 @check_birthdays.before_loop
 async def before_check_birthdays():
-    await bot.wait_until_ready()
+    await client.wait_until_ready()
     now = datetime.now()
     next_time = datetime(now.year, now.month, now.day, 4, 0)
     if next_time < now:
@@ -37,10 +38,9 @@ async def before_check_birthdays():
     await asyncio.sleep(seconds_until_next_time)  # Wait until the next scheduled time
 
 
-@bot.event
+@client.event
 async def on_ready():
-    print(f'Logged in as {bot.user.name}')
+    print(f'Logged in as {client.user.name}')
     check_birthdays.start()
 
-bot.run(config.secret) 
-
+client.run(config.secret)
