@@ -1,3 +1,5 @@
 config.py
 __pycache__
 images/
+file_with_links.txt
+birthdays.json
