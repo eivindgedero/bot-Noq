@@ -15,13 +15,13 @@ pg_12 = ["you're 12", "you 12", "12 year", "im 12", "i'm 12", "your 12", "12 btw
 async def on_ready():
     print('Logged in as {0.user}'.format(client))
 
-
+ 
 @client.event
 async def on_message_delete(message):
     if message.author.id == 234623956869447680:
         number = random.randint(1, 3)
         if number == 2:
-            await message.channel.send(file=discord.File("danny3.png"))
+            await message.channel.send(file=discord.File("images/danny3.png"))
     if message.guild.id == 725845122901737524:
         if message.channel.id == 902972612601323691:
             return
@@ -72,10 +72,11 @@ async def on_message(message):
     if ((message.channel.id == 744692129812447343) and message.attachments) or ((message.channel.id == 744692129812447343) and any(link in msg for link in links_to_copy)):
         await message.add_reaction("<a:stitch_cheer:806648037908807739>")
         await message.add_reaction("<a:panda_w00t:842286461990600714>")
-
+    #Inside joke
     # if bool(re.search(r'[Aa]bba', msg))== True and bool(re.search(r'[Kk][Ii][Ll]', msg)) == True:
-    #   await message.channel.send(file=discord.File("bot.png"))
+    #   await message.channel.send(file=discord.File("images/bot.png"))
 
+    #Supposed to save links to a file to then refresh the expiry of the link, did not work as intended - shelved but still kept active
     if any(link in msg for link in links_to_copy):
         with open("file_with_links.txt", "a") as links:
             bildelinker = re.findall(
@@ -88,13 +89,13 @@ async def on_message(message):
     if any(d in msg for d in dutch):
         number = random.randint(1, 5)
         if number == 4:
-            await message.channel.send(file=discord.File("abba_dutch.png"))
+            await message.channel.send(file=discord.File("images/abba_dutch.png"))
     # if any(clue in msg for clue in clue_phrasings):
     #   await message.channel.send("<:pepe_clue:939686143081996369>")
 
+    #Inside jokes
     # if any(kid in msg for kid in pg_12):
     #   await message.channel.send("<a:pg12:951603378625077329>")
-
 
     # if message.content.startswith('$dannylate'):
     #   await message.channel.send("<@234623956869447680> quit playing your stupid F1 game..")
@@ -102,13 +103,7 @@ async def on_message(message):
     # if message.content.startswith("$abbalate"):
     #   await message.channel.send("<@185793621524611081> wake up, it's time to game!")
 
-    # Melvin
-    # if message.author.id == 275134985869197312:
-    #   number = random.randint(1,9)
-    #   if number == 3:
-    #     await message.channel.send("<:mulvin:879195318057578516>")
-
-    # Abba
+    # Abba - inside jokes that are still interracted with
     if message.author.id == 185793621524611081:
         number = random.randint(1, 10)
         # if number == 2:
@@ -121,7 +116,9 @@ async def on_message(message):
         for e in emotes:
             if number == 3:
                 await message.channel.send("<:what:966402492504092692>")
-
+   
+   
+    #Temporary for fun reactions, not really used anymore
     # Andria
     # if message.author.id == 207554978133442561:
     #   number = random.randint(1,30)
@@ -133,6 +130,12 @@ async def on_message(message):
     #   number = random.randint(1,100)
     #   if number == 69:
     #     await message.add_reaction("<:meow_lub:809896200290959431>")
+
+    # Melvin
+    # if message.author.id == 275134985869197312:
+    #   number = random.randint(1,9)
+    #   if number == 3:
+    #     await message.channel.send("<:mulvin:879195318057578516>")
 
     # Danny
     # if message.author.id == 234623956869447680:
@@ -178,7 +181,7 @@ async def on_message(message):
     #   if number == 4:
     #     await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")
 
-    # Noq
+    # Eivind - troubleshooting and development placeholder
     # if message.author.id == 157211170233647104:
         # await message.reply("<:snakie2:830485528821760040>")
         # await message.reply("https://puu.sh/IFPuo/d644ffe5bb.png%7C%7C")

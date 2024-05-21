@@ -37,11 +37,11 @@ async def teamsize(message, teamsize:int = commands.parameter(description=" "), 
              description="Shows a picture of Abbas mood whenever he finds out he needs new parts for his Volvo."
              )    
 async def volvo(message):
-    await message.send(file=discord.File('abba_volvo.png'))
+    await message.send(file=discord.File('images/abba_volvo.png'))
     
 @bot.command(brief="Abba is dead.", description="Shows what soul will do to Abba when he breaks his word.")
 async def abba_dead(message):
-    await message.send(file=discord.File('bot.png'))
+    await message.send(file=discord.File('images/bot.png'))
 
 @bot.command(brief="List of all picture links posted in discord", 
              description="This command posts a file with all the video and picture links posted in this discord, so they can be easily accessed and 'revived'."
