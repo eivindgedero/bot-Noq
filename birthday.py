@@ -31,7 +31,7 @@ async def check_birthdays():
 async def before_check_birthdays():
     await client.wait_until_ready()
     now = datetime.now()
-    next_time = datetime(now.year, now.month, now.day, 4, 0)
+    next_time = datetime(now.year, now.month, now.day, 6, 0)
     if next_time < now:
         next_time += timedelta(days=1)
     seconds_until_next_time = (next_time - now).total_seconds()
