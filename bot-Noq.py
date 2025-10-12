@@ -12,48 +12,6 @@ async def on_ready():
     print('Logged in as {0.user}'.format(client))
 
 @client.event
-async def on_message_delete(message):
-    if message.author.id == 234623956869447680:
-        number = random.randint(1, 3)
-        if number == 2:
-            await message.channel.send(file=discord.File("images/danny3.png"))
-    if message.guild.id == 725845122901737524:
-        if message.channel.id == 902972612601323691:
-            return
-        elif message.channel.id == 1017593223226609664:
-            return
-        elif message.author.id == 946786439172087838:
-            return
-        else:
-            channel = client.get_channel(1017593223226609664)
-            await channel.send(f"**{message.channel.name}**")
-            await channel.send(f"**deleted**       {message.author.name}: *{message.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
-
-@client.event
-async def on_message_edit(before, after):
-    if before.guild.id == 725845122901737524:
-        if before.content != after.content:
-            if before.channel.id == 902972612601323691:
-                return
-            elif before.channel.id == 1017593223226609664:
-                return
-            else:
-                channel = client.get_channel(1017593223226609664)
-                await channel.send(f"**{before.channel.name}**")
-                await channel.send(f"**original**       {before.author.name}: *{before.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
-                await channel.send(f"**after edit**    {before.author.name}: *{after.content}*", allowed_mentions=discord.AllowedMentions(roles=False, everyone=False, users=False))
-
-@client.event
-async def on_member_join(member):
-    channel = client.get_channel(1017593223226609664)
-    await channel.send(f"{member.name} has joined the server.")
-
-@client.event
-async def on_member_remove(member):
-    channel = client.get_channel(1017593223226609664)
-    await channel.send(f"{member.name} has left the server.")
-
-@client.event
 async def on_message(message):
     if message.author == client.user:
         return
