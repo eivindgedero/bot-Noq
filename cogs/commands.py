@@ -72,7 +72,6 @@ class UtilityCog(commands.Cog):
             return
 
         random.shuffle(players)
-        num_teams = math.ceil(len(players) / teamsize)
         new_teams = divide_teams(players, teamsize)
 
         title = game if game else f"Teams in {channel.name}"
