@@ -3,6 +3,7 @@ import random
 import math
 import json
 import os
+import whatismyip
 from discord import app_commands
 from discord.ext import commands
 
@@ -24,6 +25,7 @@ def divide_teams(players, size):
 class UtilityCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.allowed_guild = 725845122901737524
 
     # Slash commands
 
@@ -91,6 +93,22 @@ class UtilityCog(commands.Cog):
     @commands.command(brief="Abba is dead.")
     async def abbadead(self, ctx):
         await ctx.send(file=discord.File('images/bot.png'))
+
+    @commands.command(hidden=True, brief="Minecraft servers")
+    async def servers(self, ctx):
+        if ctx.guild and ctx.guild.id != self.allowed_guild:
+            return  # ignore all other guilds
+
+        ip = whatismyip.whatismyipv4()
+        embed = discord.Embed(
+            title="Minecraft servers",
+            color=discord.Color.purple(),
+            description=f"**Meow server:** {ip}\n**New town:** {ip}:420"
+        )
+
+        await ctx.send(embed=embed)
+
+    # Add commands to add, delete, modifiy and list minecraft locations
 
     # Event listeners
 
