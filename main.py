@@ -13,7 +13,7 @@ intents.voice_states = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.command()
-@commands.is_owner()
+@commands.is_owner(hidden=True)
 async def reload(ctx, name: str):
     try:
         await bot.reload_extension(f"cogs.{name}")
