@@ -12,15 +12,33 @@ intents.voice_states = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-@bot.command()
-@commands.is_owner(hidden=True)
+@bot.command(hidden=True)
+@commands.is_owner()
 async def reload(ctx, name: str):
     try:
         await bot.reload_extension(f"cogs.{name}")
         await ctx.send(f"Reloaded `{name}` cog.")
     except Exception as e:
         await ctx.send(f"Error: {e}")
-
+        
+@bot.command(hidden=True)
+@commands.is_owner()
+async def stop(ctx, name: str):
+    try:
+        await bot.unload_extension(f"cogs.{name}")
+        await ctx.send(f"Stopped `{name}` cog.")
+    except Exception as e:
+        await ctx.send(f"Error: {e}")
+        
+@bot.command(hidden=True)
+@commands.is_owner()
+async def start(ctx, name: str):
+    try:
+        await bot.load_extension(f"cogs.{name}")
+        await ctx.send(f"Started `{name}` cog.")
+    except Exception as e:
+        await ctx.send(f"Error: {e}")
+        
 @bot.event
 async def on_ready():
     await bot.tree.sync()
