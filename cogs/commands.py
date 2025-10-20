@@ -4,6 +4,7 @@ import math
 import json
 import os
 import whatismyip
+from mcstatus import JavaServer
 from discord import app_commands
 from discord.ext import commands
 
@@ -98,12 +99,28 @@ class UtilityCog(commands.Cog):
     async def servers(self, ctx):
         if ctx.guild and ctx.guild.id != self.allowed_guild:
             return  # ignore all other guilds
-
+        
         ip = whatismyip.whatismyipv4()
+        
+        # Logic to get server version and other statuses
+        try:
+            meow_server = JavaServer.lookup(f"{ip}:25565").status()
+            meow_adventures = JavaServer.lookup(f"{ip}:420").status()
+
+            meow_server_version = meow_server.version.name
+            meow_adventures_version = meow_adventures.version.name
+            
+        except Exception as e:
+            await ctx.send("Error retrieving server IP address.")
+            return
+        
         embed = discord.Embed(
             title="Minecraft servers",
             color=discord.Color.purple(),
-            description=f"**Meow server:** {ip}\n**New town:** {ip}:420"
+            description=(
+                f"**Meow server {meow_server_version}:** ```{ip}```\n"
+                f"**Meow adventures {meow_adventures_version}:** ```{ip}:420```"
+            )
         )
 
         await ctx.send(embed=embed)
