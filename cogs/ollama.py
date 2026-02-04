@@ -22,8 +22,7 @@ class Ollama(commands.Cog):
             await self.session.close()
 
     @commands.command()
-    async def reset(self, ctx: commands.Context):
-        """Reset your chat history with the bot."""
+    async def reset(self, ctx):
         self.history.pop(ctx.author.id, None)
         await ctx.reply("Chat history cleared.")
 
@@ -32,13 +31,11 @@ class Ollama(commands.Cog):
         if message.author.bot:
             return
 
-        # Allow commands (like !reset) to run
-        if message.content.startswith("!"):
-            await self.bot.process_commands(message)
-            return
-
-        # Only respond to DMs
         if message.guild is not None:
+            return
+        
+        ctx = await self.bot.get_context(message)
+        if ctx.valid:
             return
 
         if not message.content.strip():
